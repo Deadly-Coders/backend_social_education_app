@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Introduction to Cybersecurity",
+    "description": "This lecture covers the basics of cybersecurity, including common threats and how to protect against them.",
+    "subject": "Cybersecurity",
+    "date": "2024-09-20"
+  },
+  {
+    "title": "Advanced JavaScript Techniques",
+    "description": "Learn about advanced topics in JavaScript, including closures, promises, and asynchronous programming.",
+    "subject": "Web Development",
+    "date": "2024-09-22"
+  },
+  {
+    "title": "Data Structures and Algorithms",
+    "description": "An overview of fundamental data structures and algorithms, including arrays, linked lists, stacks, and queues.",
+    "subject": "Computer Science",
+    "date": "2024-09-25"
+  },
+  {
+    "title": "Introduction to Machine Learning",
+    "description": "This lecture introduces the concepts of machine learning, including supervised and unsupervised learning models.",
+    "subject": "Artificial Intelligence",
+    "date": "2024-09-27"
+  },
+  {
+    "title": "Cloud Computing Fundamentals",
+    "description": "Understand the basics of cloud computing, including different service models (IaaS, PaaS, SaaS) and deployment models.",
+    "subject": "Cloud Computing",
+    "date": "2024-10-01"
+  },
+  {
+    "title": "Operating System Concepts",
+    "description": "Explores the fundamentals of operating systems, covering process management, memory management, and file systems.",
+    "subject": "Computer Science",
+    "date": "2024-10-05"
+  },
+  {
+    "title": "Database Design and Management",
+    "description": "An introduction to relational database design, SQL queries, and data management techniques.",
+    "subject": "Database Management",
+    "date": "2024-10-07"
+  },
+  {
+    "title": "Network Security Essentials",
+    "description": "Learn the basics of securing network infrastructures, including firewalls, encryption, and VPNs.",
+    "subject": "Cybersecurity",
+    "date": "2024-10-09"
+  },
+  {
+    "title": "Python for Data Science",
+    "description": "Covers Python programming with a focus on data analysis, including libraries such as NumPy and Pandas.",
+    "subject": "Data Science",
+    "date": "2024-10-12"
+  },
+  {
+    "title": "Mobile Application Development",
+    "description": "Learn how to develop mobile applications for Android and iOS platforms using modern frameworks.",
+    "subject": "Mobile Development",
+    "date": "2024-10-14"
+  },
+  {
+    "title": "Artificial Neural Networks",
+    "description": "An introduction to artificial neural networks and their applications in deep learning.",
+    "subject": "Artificial Intelligence",
+    "date": "2024-10-17"
+  },
+  {
+    "title": "RESTful API Design",
+    "description": "Learn how to design and implement RESTful APIs using best practices for scalability and security.",
+    "subject": "Web Development",
+    "date": "2024-10-20"
+  },
+  {
+    "title": "Introduction to Blockchain",
+    "description": "Covers the basics of blockchain technology, including how distributed ledgers work and their applications.",
+    "subject": "Blockchain",
+    "date": "2024-10-22"
+  },
+  {
+    "title": "Ethical Hacking and Penetration Testing",
+    "description": "Learn the fundamentals of ethical hacking, penetration testing methodologies, and vulnerability assessments.",
+    "subject": "Cybersecurity",
+    "date": "2024-10-25"
+  },
+  {
+    "title": "Quantum Computing Basics",
+    "description": "An introduction to the principles of quantum computing, including qubits, superposition, and quantum algorithms.",
+    "subject": "Quantum Computing",
+    "date": "2024-10-28"
+  }
+]
