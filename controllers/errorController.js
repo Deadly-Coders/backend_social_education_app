@@ -35,14 +35,15 @@ const sendErrorDev = (err, req, res) => {
       message: err.message,
       stack: err.stack,
     });
-  } else {
-    //(B) This is for the render
-    return res.status(err.statusCode).render('error', {
-      title: 'Something went wrong',
-      msg: err.message,
-      status: err.statusCode,
-    });
   }
+  // else {
+  //   //(B) This is for the render
+  //   return res.status(err.statusCode).render('error', {
+  //     title: 'Something went wrong',
+  //     msg: err.message,
+  //     status: err.statusCode,
+  //   });
+  // }
 };
 
 const sendErrorProd = (err, req, res) => {

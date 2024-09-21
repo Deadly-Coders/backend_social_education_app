@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.IO Chat Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .chat-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      #messages {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+        height: 300px;
+        overflow-y: scroll;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f9f9f9;
+      }
+      #messages li {
+        padding: 5px;
+        border-bottom: 1px solid #ddd;
+      }
+      #message-form {
+        display: flex;
+      }
+      #message-form input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      #message-form button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+      }
+      #message-form button:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <h2>Socket.IO Chat Test</h2>
+      <ul id="messages"></ul>
+      <form id="message-form">
+        <input
+          id="message-input"
+          autocomplete="off"
+          placeholder="Type your message"
+        />
+        <button>Send</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+      const socket = io('http://192.168.209.112:3000'); // Make sure to replace this with your server URL if it's different
+
+      // Join a room
+      const userId = '5c8a1f292f8fb814b56fa184';
+      socket.emit('joinRoom', userId);
+
+      // Handle receiving messages
+      socket.on('newMessage', (msg) => {
+        const item = document.createElement('li');
+        item.textContent = `From ${msg.senderId}: ${msg.message}`;
+        document.getElementById('messages').appendChild(item);
+      });
+
+      // Send a message
+      const form = document.getElementById('message-form');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const input = document.getElementById('message-input');
+        const message = input.value;
+
+        const receiverId = '66e993e3437df45f4b82ef90'; // You can handle this better in production
+
+        // Emit message to server
+        socket.emit('sendMessage', {
+          senderId: userId,
+          receiverId: receiverId,
+          message: message,
+        });
+
+        // Clear the input field
+        input.value = '';
+      });
+
+      // Handle connection and disconnection
+      socket.on('connect', () => {
+        console.log('Connected to the server');
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from the server');
+      });
+    </script>
+  </body>
+</html>

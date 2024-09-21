@@ -18,7 +18,7 @@ const marketSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'A market product must belong to a User'],
   },
-  image: {
+  photo: {
     type: String,
     // required: [true, 'Please give us your image'],
   },

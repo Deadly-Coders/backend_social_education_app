@@ -40,7 +40,10 @@ const userSchema = new mongoose.Schema({
       required: [true, 'Please tell us your interests'], //INTORODUCE ENUM HERE
     },
   ],
-  photo: String,
+  photo: {
+    type: String,
+    default: 'default.png',
+  },
   email: {
     type: String,
     required: [true, 'Please provide your email!'],

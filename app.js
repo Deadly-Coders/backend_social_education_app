@@ -6,6 +6,7 @@ const userRouter = require('./routes/userRoutes');
 const marketRouter = require('./routes/marketRoutes');
 const lectureRouter = require('./routes/lectureRoutes');
 const resourceRouter = require('./routes/resourceRoutes');
+const socketRouter = require('./routes/socketRouter');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController'); //ERROR HANDLERS
@@ -19,6 +20,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/market', marketRouter);
 app.use('/api/v1/lecture', lectureRouter);
 app.use('/api/v1/resource', resourceRouter);
+app.use('/api/v1/messages', socketRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Cant Find ${req.originalUrl} on this server`, 404));

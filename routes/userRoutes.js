@@ -20,11 +20,13 @@ router.patch(
 );
 router.delete('/deleteMe', userController.deleteMe);
 router.get('/me', userController.getMe, userController.getUser);
+
 router.patch('/updateMyPassword', authController.updatePassword);
 
 router.get('/addfriend/:id', userController.addFriend);
 router.get('/remfriend/:id', userController.removeFriend);
 router.get('/sugstfriend', userController.friendSuggest);
+router.get('/:id', userController.getUser);
 
 router.route('/').get(userController.getAllUser);
 

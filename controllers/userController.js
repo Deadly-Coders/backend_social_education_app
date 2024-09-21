@@ -9,6 +9,7 @@ const multer = require('multer');
 
 const multerStorage = multer.memoryStorage();
 const multerFilter = (req, file, cb) => {
+  console.log('image passed');
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
@@ -24,13 +25,28 @@ const upload = multer({
 exports.uploadUserPhoto = upload.single('photo');
 
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
+  console.log(req.originalUrl);
+
   if (!req.file) return next();
   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`view/img/users/${req.file.filename}`);
+  if (req.originalUrl.includes('updateMe')) {
+    console.log('circular sharp has been hit');
+    await sharp(req.file.buffer)
+      .resize(500, 500)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(`view/img/users/${req.file.filename}`);
+  } else {
+    console.log('square  sharp has been hit');
+    await sharp(req.file.buffer)
+      .resize(500, 500, {
+        fit: sharp.fit.cover, // ensures the image is cropped to cover the square dimensions
+        position: 'center', // centers the image before cropping
+      })
+      .toFormat('jpeg')
+      .jpeg({ quality: 100 }) // higher quality for high resolution
+      .toFile(`view/img/market/${req.file.filename}`);
+  }
   next();
 });
 
@@ -96,7 +112,10 @@ exports.getMe = (req, res, next) => {
   req.params.id = req.user.id;
   next();
 };
-exports.getUser = factory.getOne(User);
+exports.getUser = factory.getOne(User, {
+  path: 'friends',
+  select: 'name photo',
+});
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
@@ -143,7 +162,7 @@ exports.removeFriend = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
   await friendUser.save({ validateBeforeSave: false });
 
-  res.status(200).json({
+  res.status(204).json({
     status: 'success',
     message: 'friends removed successfully',
   });
