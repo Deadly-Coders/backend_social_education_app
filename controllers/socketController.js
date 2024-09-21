@@ -23,12 +23,13 @@ exports.socketConn = catchAsync(async (req, res, next) => {
     });
 
     if (!conversation) {
-      console.error(
-        `Error: Conversation not found for userId ${userId} and friendId ${friendId}`
-      );
-      return res.status(404).json({
-        status: 'fail',
-        message: 'Conversation not found',
+      conversation = new Conversation({
+        participants: [userId, friendId],
+      });
+      await conversation.save();
+      res.status(200).json({
+        status: 'success',
+        conversation,
       });
     }
 
