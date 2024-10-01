@@ -17,7 +17,7 @@ const hpp = require('hpp');
 const compression = require('compression');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean'); //security based middlewares
+const xss = require('xss-clean'); //security based middleware
 
 app.use(cors());
 app.options('*', cors());
