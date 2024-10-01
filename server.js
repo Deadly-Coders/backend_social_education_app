@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
       receiverId,
       message,
     });
-    console.log('this is an image', msg);
+    console.log('Message: ', msg);
 
     await msg.save();
 

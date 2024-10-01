@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const app = express();
 const cors = require('cors');
@@ -34,6 +36,18 @@ app.use(
 
 app.use(morgan('dev')); //morgan middleware
 app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, // Replace with a strong secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      // secure: process.env.NODE_ENV === 'production' ? true : false,
+    }, // Set secure to true in production with HTTPS
+  })
+);
 
 app.use(mongoSanitize());
 app.use(xss());

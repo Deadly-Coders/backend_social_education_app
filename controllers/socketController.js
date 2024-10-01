@@ -1,5 +1,6 @@
 const Conversation = require('../models/conversationModel');
 const Message = require('../models/messageModel');
+const AppError = require('../utils/appError');
 
 const catchAsync = require('../utils/catchAsync');
 
@@ -11,41 +12,31 @@ exports.socketConn = catchAsync(async (req, res, next) => {
 
   if (!userId || !friendId) {
     console.error('Error: Missing userId or friendId');
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing userId or friendId',
-    });
+
+    return next(new AppError('Missing userId or friendId', 400));
   }
 
-  try {
-    const conversation = await Conversation.findOne({
-      participants: { $all: [userId, friendId] },
+  const conversation = await Conversation.findOne({
+    participants: { $all: [userId, friendId] },
+  });
+
+  if (!conversation) {
+    conversation = new Conversation({
+      participants: [userId, friendId],
     });
-
-    if (!conversation) {
-      conversation = new Conversation({
-        participants: [userId, friendId],
-      });
-      await conversation.save();
-      res.status(200).json({
-        status: 'success',
-        conversation,
-      });
-    }
-
-    const messages = await Message.find({ conversationId: conversation._id });
-
+    await conversation.save();
     res.status(200).json({
       status: 'success',
-      data: {
-        messages,
-      },
+      conversation,
     });
-  } catch (error) {
-    console.error('Server error:', error);
-    res.status(500).json({
-      status: 'error',
-      message: 'Server error. Please try again later.',
-    });
-  }
+  } //Removed unnecessary code
+
+  const messages = await Message.find({ conversationId: conversation._id });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      messages,
+    },
+  });
 });
